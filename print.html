@@ -1,0 +1,952 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="index.html">Introduction</a></li><li class="chapter-item "><a href="Learn.html">The Protocol</a></li><li class="chapter-item "><a href="nested/Mechanisms.html">The Consensus Mechanism</a></li><li class="chapter-item "><a href="nested/GovernanceResponsibility.html">Governance and Responsibilty</a></li><li class="chapter-item affix "><li class="part-title">Tutorials</li><li class="chapter-item "><a href="RunningAMiner.html">Getting Started</a></li><li class="chapter-item "><a href="cli/Subtensor.html">Subtensor</a></li><li class="chapter-item "><a href="cli/Basicbtcli.html">Basic btcli</a></li><li class="chapter-item "><a href="cli/MinerPreperation.html">Preparing Your Miner</a></li><li class="chapter-item "><a href="css/ServerCustomization.html">Server Customization</a></li><li class="chapter-item "><a href="css/ValidatorCustomization.html">Validator Customization</a></li><li class="chapter-item "><a href="nested/Glossary.html">Glossary</a></li><li class="chapter-item "><a href="Arguments.html">Flags</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/opentensor/docs" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>Bittensor is an open-source protocol that powers a scalable, decentralized neural network. The system is designed to incentivize the production of machine intelligence by training models within a blockchain infrastructure and rewarding performance with a custom digital currency. </p>
+<p>The network is composed of several thousand nodes, each containing a machine learning model. All nodes are assigned the task of parsing a massive collection of text data, working collaboratively to extract semantic meaning. By way of a consensus mechanism, the system is designed to reward the most value-producing nodes, such that the digital token reaches equivalency with the quality and quantity of representational knowledge in the system.</p>
+<p>Ultimately, our vision is to create a pure market for artificial intelligence.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-protocol"><a class="header" href="#the-protocol">The Protocol</a></h1>
+<p>There are two types of <a href="src/../nested/Glossary.html#miner/neuron/peer/node">nodes</a> that comprise the network: Servers and Validators. The Validators are tasked with “validating” the performance of the Servers, prompting them for information and assessing them according to their responses. These assessments are then relayed to the network blockchain, <a href="src/../nested/Glossary.html#nakamoto">Nakamoto</a>, where currency is distributed. Servers, on the other hand, are responsible for optimizing their responses so that they can compete with other Servers in the system for positive assessments, and therefore <a href="src/../nested/Glossary.html#tao">currency</a>. The best performing Servers will recieve a larger portion of the limited supply of minted Tao.</p>
+<p>Each validation process begins when a Validator locates a Server in the network and sends its <a href="src/../nested/Glossary.html#inputs">input</a> in the form of tokenized text, also referred to as <a href="src/../nested/Glossary.html#tokens"><strong>tokens</strong></a>. The Server then responds with <a href="src/../nested/Glossary.html#logits"><strong>logits</strong></a>, which represent their best attempt at <a href="src/../nested/Glossary.html#next-token-prediction"><strong>next token prediction</strong> (NTP)</a>. This constitutes the central value-producing activity of the network. The Validator will then score each Server according to their response, using a series of information-based processes and game theoretic strategies to determine the usefulness of the information received. </p>
+<p>As a user, when you register in the network you can choose which role you wish you play. Your node will be fashioned in the a model, a wallet (containing two keys) and a custom dataset, at which point you will be ready to participate and contribute knowledge to the network. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-consensus-mechanism"><a class="header" href="#the-consensus-mechanism">The Consensus Mechanism</a></h1>
+<p>The distribution of Tao is not linear and is not determined by a single transaction.  Our consensus mechanism is designed so that nodes that are valuable in the network recieve more reward at an increasing rate. Once individual scores have been determined, the network blockchain uses a <a href="nested/src/../Glossary.html#consensus-mechanism">consensus algorithm</a> to reach a common agreement over who the most valuable participants in the system in order to reward them accordingly, while deterring the activity of malicious nodes in the network. </p>
+<p>Servers are rewarded based on their performance in individual instances of knowledge production, and in addition, they must prove useful to the majority of Validators in the network to optimize their earnings. Validators, on the other hand, are incentivized to collaborate with highly valuable Servers in the system who are also trusted by the majority through a bonding mechanism and a limitation in the supply of scores they are able to give.</p>
+<p>Servers receive two separate assessments from Validators that are combined to determine their Tao inflation, thus acting as an incentive. </p>
+<ul>
+<li>
+<p>The first assessment is the <a href="nested/src/../Glossary.html#consensus-mechanism">consensus score</a>, which is determined by the number of approval votes given by validators <a href="nested/src/../Glossary.html#trust">(trust)</a>. This score is not earned in a linear fashion, as Validators with more stake (Tao) are able to distribute a greater number of votes. The score is also regularized by a <a href="nested/src/../Glossary.html#sigmoid-function">sigmoid function</a>: if less than 51% of the votes a Server receives are positive, the score is reduced exponentially, if more than 51% are positive, it is likewise inflated.</p>
+</li>
+<li>
+<p>This consensus score is then combined with the <a href="nested/src/../Glossary.html#rank">rank</a> - numerical determinant of representational knowledge value - achieved to determine the server's Tao inflation. Again, this score (rank) is skewed: it is a combination of weights set by the validator and the stake of that validator.</p>
+</li>
+</ul>
+<p>Validators, as well, are subject to a set of conditions to incentivize right conduct in the system. </p>
+<ul>
+<li>
+<p>The first of these is the <a href="nested/src/../Glossary.html#bodning-mechanism">“bonding mechanism”</a>: when Validators <a href="nested/src/../Glossary.html#rank">rank</a> a given Server, they simultaneously purchase equity in that node, and receive inflation proportional to this. Because of the <a href="nested/src/../Glossary.html#consensus-mechanism">consensus mechanism</a> previously described, Validators benefit from distributing their highest scores to Servers who are likely to be scored highly by other Validators as well - <a href="nested/src/../Glossary.html#trust">“trusted”</a> Servers. </p>
+</li>
+<li>
+<p>In addition, Validators are limited in the number and size of scores they are allowed to distribute, and so must choose wisely where their investment is allocated: they must only choose the best and the brightest.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="governance-and-responsibility"><a class="header" href="#governance-and-responsibility">Governance and Responsibility</a></h1>
+<p>Shadowing this project is the Opentensor Foundation, a globally distributed, non-profit organization that is responsible for navigating the off-chain aspects of Bittensor. Ownership of the Foundation is also shared amongst network contributors through a system of tokenization - where donations of Tao confer ownership and decision-making power. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
+<p>This section will guide you through the basic steps necessary to start a miner and register in our network. Prior to installing, it is recommended that you have access to at least:</p>
+<ul>
+<li>16GB of RAM </li>
+<li>100GB of disk space</li>
+<li>8 vCPUs </li>
+<li>Ubuntu LTS releases or Macintosh </li>
+<li>A good and stable internet connection </li>
+</ul>
+<p>Connecting to a hardware service VPS will be necessary for many users, as will procuring a process manager software to ensure your miner stays online consistently.</p>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<p>To begin, paste this script into your macOS Terminal or Linux shell prompt:</p>
+<pre><code class="language-bash">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/opentensor/bittensor/master/scripts/install.sh)&quot;
+</code></pre>
+<p>You will be notified when the installation is complete, and the next step will be to create your keys.</p>
+<h2 id="creating-your-keys"><a class="header" href="#creating-your-keys">Creating Your Keys</a></h2>
+<h3 id="create-your-coldkey"><a class="header" href="#create-your-coldkey">Create your coldkey</a></h3>
+<p>Your coldkey remains on your device and holds your &quot;cold storage&quot;. Currency in cold storage cannot be used for immediate activity in the network </p>
+<pre><code>btcli new_coldkey
+</code></pre>
+<p>You will be prompted to name your wallet (which refers to the coldkey in this instance) and choose a password, before being provided with a unique mnemonic device. Record this information privately and securely.</p>
+<h4 id="create-your-hotkey"><a class="header" href="#create-your-hotkey">Create Your hotkey</a></h4>
+<p>This key contains your &quot;hot storage&quot;: currency that can be used for immediate activity in the network. Your coldkey can have multiple hotkeys attached to it,  while each hotkey can only be associated with one coldkey. </p>
+<pre><code>btcli new_hotkey
+</code></pre>
+<p>You will be prompted to complete the same steps as with the last key, in addition to specifying which coldkey you would like to connect your hotkey to. </p>
+<h2 id="running-a-miner"><a class="header" href="#running-a-miner">Running a Miner</a></h2>
+<p>With your keys created, you can now run your miner. </p>
+<pre><code>btcli run
+</code></pre>
+<p>You will be immediately prompted to: </p>
+<h3 id="choose-a-miner"><a class="header" href="#choose-a-miner">Choose a Miner</a></h3>
+<p>To start, we recommend you choose &quot;template_miner&quot;. </p>
+<h3 id="choose-a-network"><a class="header" href="#choose-a-network">Choose a Network</a></h3>
+<ul>
+<li>To familiarize yourself with the protocol without mining, choose our test network, Nobunaga</li>
+<li>To start mining immediately, choose Nakamoto, our main network. </li>
+</ul>
+<p>Ultimately, we suggest that users switch to running the network software locally, after initially registering to Nakamoto. Although this option is more energy intensive, it will give you access to enhanced speed and safety while using the protocol, and is recommended for serious participants. </p>
+<p>Registering on the network can take some time, depending on the calibre of your hardware. You will be notified when the process is complete. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="subtensor"><a class="header" href="#subtensor">Subtensor</a></h1>
+<hr />
+<p>Subtensor is our network blockchain and keeps a record of every transaction that occurs. A new block is created and recorded every 12 seconds - or &quot;blockstep&quot; - at which time a new round of Tao is distributed. </p>
+<p>By connecting to Nakamoto, you automatically gain access to Subtensor. Running a Subtensor instance locally, however, will ensure a faster and more consistent experience in the case that the network is compromised or slowed by high traffic. It is therefore recommended. </p>
+<h2 id="running-subtensor"><a class="header" href="#running-subtensor">Running Subtensor</a></h2>
+<ol>
+<li>Prepare your system by updating outdated packages in your system, and installing the newest available ones. You can do this in two commands. </li>
+</ol>
+<pre><code class="language-bash">sudo apt-get update
+</code></pre>
+<pre><code class="language-bash">sudo apt-get upgrade
+</code></pre>
+<ol>
+<li>Install an application package software to maintain Subtensor locally. Bittensor mining is very computationally complex, and software like this will help allocate appropriate resources. We recommend using Docker. For more information, follow this link.</li>
+</ol>
+<p>Run the following commands:</p>
+<pre><code class="language-bash">curl -fsSL https://get.docker.com -o get-docker.sh
+</code></pre>
+<pre><code class="language-bash">sudo sh get-docker.sh
+</code></pre>
+<pre><code class="language-bash">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
+</code></pre>
+<pre><code class="language-bash">sudo chmod +x /usr/local/bin/docker-compose
+</code></pre>
+<ol start="3">
+<li>Install Subtensor</li>
+</ol>
+<pre><code class="language-bash">git clone https://github.com/opentensor/subtensor.git ~/.bittensor/subtensor
+</code></pre>
+<ol start="4">
+<li>Connect with the Subtensor directory </li>
+</ol>
+<pre><code class="language-bash">cd ~/.bittensor/subtensor
+</code></pre>
+<ol start="5">
+<li>Pull the latest Subtensor image </li>
+</ol>
+<pre><code class="language-bash">docker pull opentensorfdn/subtensor
+</code></pre>
+<ol start="6">
+<li>Run Subtensor inside of your application package software </li>
+</ol>
+<pre><code class="language-bash">sudo docker-compose up -d
+</code></pre>
+<ol start="7">
+<li>Check that Subtensor is fully synced</li>
+</ol>
+<pre><code class="language-bash">docker logs --since=1h node-subtensor 2&gt;&amp;1  | grep &quot;best&quot;
+</code></pre>
+<p>Here is an example of a synced copy of Subtensor:</p>
+<pre><code class="language-bash">/node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50564.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50568.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50572.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50576.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50580.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50584.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50588.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50592.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50596.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50600.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50604.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50608.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50612.    
+node-subtensor    | 2022-04-27 01:32:22 Accepted a new tcp connection from 172.22.0.1:50616. 
+</code></pre>
+<p>In case your Subtensor goes down, here is the command to restart it: </p>
+<pre><code class="language-bash">cd ~/.bittensor/subtensor &amp;&amp; \
+/usr/local/bin/docker-compose down &amp;&amp; \
+docker system prune -a -f &amp;&amp; \
+git -C ~/.bittensor/subtensor pull origin master &amp;&amp; \
+docker pull opentensorfdn/subtensor &amp;&amp; \
+/usr/local/bin/docker-compose up -d 
+</code></pre>
+<p>Lastly, here are the steps to ensure both Bittensor and Subtensor are up to date. </p>
+<p>Update Bittensor: </p>
+<pre><code class="language-bash">git -C ~/.bittensor/bittensor pull origin master
+python3 -m pip install -e ~/.bittensor/bittensor
+</code></pre>
+<p>Update Subtensor: </p>
+<pre><code class="language-bash">#Bring Subtensor down
+sudo docker-compose down
+#Connect to directory
+cd ~/.bittensor/subtensor
+#update Subtensor
+sudo git pull
+#Bring Subtensor back up 
+sudo docker-compose up -d
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="basic-btcli"><a class="header" href="#basic-btcli">Basic btcli</a></h1>
+<p>Before you begin customizing your Miner to optimize your currency accrual, it is useful to familiarize yourself with our<code>btcli</code> commands. Btcli is a command line interface to interact with Bittensor, and commands are used to monitor Miner performance, transfer Tao, and regenerate keys. </p>
+<p>​</p>
+<h2 id="monitoring"><a class="header" href="#monitoring">Monitoring</a></h2>
+<p>​</p>
+<p>For an overview of all possible btcli commands, enter: </p>
+<pre><code class="language-bash">btcli help
+</code></pre>
+<p>Both the &quot;overview&quot; and &quot;inspect&quot; commands are used to monitor your miner performance: </p>
+<pre><code class="language-bash">btcli overview 
+</code></pre>
+<p>This command will display the specifics of your progress in the network, and includes your UID, state (active or inactive), <a href="cli/src/../Glossary.html#stake">stake</a>, <a href="cli/src/../../nested/Glossary.html">rank</a>, <a href="cli/src/../../nested/Glossary.html#trust">trust</a>, <a href="cli/src/../../nested/Glossary.html#consensus">consensus</a>, <a href="cli/src/../../nested/Glossary.html#incentive">incentive</a>, <a href="cli/src/../../nested/Glossary.html#dividends">dividends</a>, and <a href="cli/src/../../nested/Glossary.html#inflation">emission</a>. For more information about these performance indicators, refer to the <a href="cli/../nested/Mechanisms.html">&quot;Consensus Mechanism&quot;</a> section.</p>
+<pre><code class="language-bash">btcli inspect 
+</code></pre>
+<p>​</p>
+<p>This command will not display such a detailed analysis of your performance, but will allow you to see your key identifiers, fingerprints, network, balance, stake, and emission. 
+​</p>
+<p>For a complete list of all created keys, run: </p>
+<pre><code class="language-bash">btcli list
+</code></pre>
+<h2 id="transferring-tao"><a class="header" href="#transferring-tao">Transferring Tao</a></h2>
+<p>​</p>
+<p>The 'unstake' command will transfer Tao from a hotkey to your coldkey. </p>
+<pre><code class="language-bash​">btcli unstake
+</code></pre>
+<p>​</p>
+<p>The transfer Tao from your coldkey to your hotkey, enter: </p>
+<pre><code class="language-bash​">btcli stake 
+</code></pre>
+<p>​</p>
+<p>To expedite longer staking and unstaking operations, you can string these flags to <code>btcli stake</code> and <code>btcli unstake</code>:</p>
+<pre><code class="language-bash">#stake or unstake from all hotkeys
+--wallet.all_hotkeys 
+#stake or unstake from a specific set of hotkeys
+--wallet.hotkeys
+#stake or unstake from all hotkeys while exluding a specific set of hotkeys
+--wallet.exclude_hotkeys
+#stake or unstake to a specific amount of stake on a hotkey
+--max_stake
+</code></pre>
+<p>​</p>
+<p>This command moves Tao between coldkeys. A .125 tao burn fee is applied.</p>
+<pre><code class="language-bash​">btcli transfer
+</code></pre>
+<h2 id="key-regeneration"><a class="header" href="#key-regeneration">Key Regeneration</a></h2>
+<p>​</p>
+<p>If you lose access to your keys, they can be easily regenerated with the unique mnemonic device you were provided with upon initial creation. </p>
+<pre><code class="language-bash​">btcli regen_coldkey
+</code></pre>
+<pre><code class="language-bash">btcli regen_hotkey
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="preparing-your-miner"><a class="header" href="#preparing-your-miner">Preparing your Miner</a></h1>
+<p>Once your Miner is registered in the network you and have Subtensor running locally, your basic setup is complete. Your Miner will begin processing data, generating value for the network, and accruing Tao. 
+​</p>
+<p>This area of the documentation will guide you through the basic customizations that can be made to your Miner in with flags, in order to set your Miner up for success in the network.</p>
+<p>​</p>
+<h2 id="choosing-your-hardware"><a class="header" href="#choosing-your-hardware">Choosing your Hardware</a></h2>
+<p>​</p>
+<p>While the current network parameters typically do not demand the computational power of a GPU, larger models may. 
+​</p>
+<p>To run with GPU:</p>
+<pre><code class="language-bash">--neuron.device cuda
+</code></pre>
+<p>To run with CPU: </p>
+<pre><code class="language-bash">--neuron.device cpu
+</code></pre>
+<h2 id="choosing-a-network"><a class="header" href="#choosing-a-network">Choosing a Network</a></h2>
+<p>​</p>
+<p>This argument specifies which instance of Subtensor you will connect to: a local copy, the public Nakamoto copy, or the test network Nobunaga. 
+​</p>
+<pre><code>--subtensor.network 
+</code></pre>
+<p>You can also select a network endpoint: 
+​</p>
+<pre><code class="language-bash">--subtensor.chain_endpoint
+</code></pre>
+<p>​</p>
+<h2 id="choosing-a-wallet"><a class="header" href="#choosing-a-wallet">Choosing a Wallet</a></h2>
+<p>​</p>
+<p>Every running miner must be connected to a registered hotkey. This code will specify which hotkey you wanted to use, as well as the corresponding coldkey (wallet). 
+​</p>
+<pre><code class="language-bash">--wallet.name 
+</code></pre>
+<pre><code class="language-bash">--hotkey.name
+</code></pre>
+<h2 id="choosing-a-port"><a class="header" href="#choosing-a-port">Choosing a Port</a></h2>
+<p>​</p>
+<p>Specifying a the port to access the network by is important because you will benefit from entering in a low traffic area. This will generally be one above 1024 and below 65535. Each miner needs to have a unique port, so if you have two miners running on the same machine, they will require two separate ports.</p>
+<p>​
+The miner communicates with the network through its communication endpoint, the axon. This is where the argument is made. 
+​</p>
+<pre><code class="language-bash">--axon.port
+</code></pre>
+<p>​ex.</p>
+<pre><code class="language-bash">--axon.port 8090
+</code></pre>
+<h2 id="restarting-you-miner"><a class="header" href="#restarting-you-miner">Restarting you Miner</a></h2>
+<p>​</p>
+<p>Only use this argument when you wish to start your Miner from the beginning. This will delete all progress. 
+​</p>
+<pre><code class="language-bash">--neuron.restart
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="server-customization"><a class="header" href="#server-customization">Server Customization</a></h1>
+<hr />
+<p>When you first enter the network, you will be running a Server. Until you have accrued ~1000 Tao, serving is the only way to mine a significant amount of Tao, and the ultimate goal is to upgrade, customize and design your model in such a way as to optimize this. 
+​</p>
+<h2 id="choosing-a-model"><a class="header" href="#choosing-a-model">Choosing a Model</a></h2>
+<p>​</p>
+<p>By default, your miner is outfitted with the gpt2 model. While the ultimate goals is to upgrade, customize, and design your own model from scratch, choosing one from <a href="https://huggingface.co/models">Hugging Face</a> is a good place to start. 
+​</p>
+<p>The argument that downloads a Hugging Face model is:
+​</p>
+<pre><code class="language-bash">--neuron.model_name 
+</code></pre>
+<p>For example: 
+​</p>
+<pre><code class="language-bash">--neuron.model_name distillgpt2
+</code></pre>
+<p>These are some popular models, however you are not limited to only these:
+​</p>
+<ul>
+<li>distilgpt2</li>
+<li>gpt2</li>
+<li>distilbert-base-uncased-finetuned-sst-2-english</li>
+<li>roberta-base</li>
+<li>distilbert-base-uncased</li>
+<li>bert-base-cased</li>
+<li>xlm-roberta-large-finetuned-conll03-english</li>
+</ul>
+<p>As expected, the larger the model is, the more computational resources it will need to run smoothly on the network. </p>
+<p>​<em>View <a href="https://huggingface.co/models">Hugging Face</a> for more options or fintune your own!</em></p>
+<h2 id="choosing-peers"><a class="header" href="#choosing-peers">Choosing Peers</a></h2>
+<p>​</p>
+<p>By associating only with high-stake Validators, Servers are able to optimize their inflation. Using the &quot;blacklist&quot; argument, you can decide the minimum stake a Validator must have to send a forward request. By default, server only interact with Validator with stake above 1000, but you can increase that even further if you like. 
+​</p>
+<pre><code class="language-bash">--neuron.blacklist.stake.forward &lt;&gt;
+</code></pre>
+<h2 id="padding"><a class="header" href="#padding">Padding</a></h2>
+<p>​</p>
+<p>The padding parameter adjusts the embedding dimensions for your model to match the network dimension, which is currently set to 1024. By default, the padding is turned on, however, while this useful for smaller models, it is useful to turn it off for larger models. This command only works for advanced servers
+​</p>
+<pre><code class="language-bash">neuron.padding false
+</code></pre>
+<h2 id="staking-tao"><a class="header" href="#staking-tao">Staking Tao</a></h2>
+<p>​</p>
+<p>The more Tao you have staked to a hotkey, the more protection that hotkey has from getting deregistered in the network. However, Tao staked in your hotkey, as a Server, does not increased your dividends. 
+​</p>
+<h2 id="timeouts"><a class="header" href="#timeouts">Timeouts</a></h2>
+<p>​</p>
+<p>Optimizing request speed is essential for mining. The faster your Server can process Validator requests, the better its earnings will be. A server must be able to process a request within one blockstep, or else a timeout will occur. If this happens, you will need to improve your connection, or your hardware. As a server, you are only concerned with forward requests, and timeouts here mean your Server cannot computational keep up with the demands of the network. 
+​</p>
+<p>Check your timeouts on your &quot;logs&quot; that pop up the moment your miner starts to run. You can also access it this way: 
+​</p>
+<pre><code class="language-bash">--logging.debug
+</code></pre>
+<p>This will show you requests on the <a href="css/src/../../nested/Glossary.html#axon">axon</a> and the <a href="css/src/../../nested/Glossary.html#dendrite">dendrite</a> as well as weights set on the chain. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="validator-customization"><a class="header" href="#validator-customization">Validator Customization</a></h1>
+<hr />
+<p>Running a Validator becomes beneficial only once you have accrued a significant amount of Tao. This is due to the <a href="css/src/../Glossary.html#bonding-matrix">bonding matrix</a>: Validators accrue currency in proportion to their stake due to the existence of dividends.  This beneficial tipping point occurs at around ~1000 Tao. 
+​</p>
+<p>In addition, Validators are less sensitive to disconnection compared to Servers, who's incentive will begin falling within 20 minutes of disconnection (100 blocks). Validators, however, will only become inactive after 5000 blocks. </p>
+<h2 id="running-a-validator"><a class="header" href="#running-a-validator">Running a Validator</a></h2>
+<p>​</p>
+<p>Any registered hotkey can be used to run a Validator, and it is as simple as running this code: </p>
+<pre><code class="language-bash">python3 -u ~/.bittensor/bittensor/bittensor/_neuron/text/core_validator/main.py --no_prompt --subtensor.network local --wallet.name &lt;&gt; --wallet.hotkey &lt;&gt;
+</code></pre>
+<h2 id="optimizing-size"><a class="header" href="#optimizing-size">Optimizing Size</a></h2>
+<p>​</p>
+<p>The following configuration condenses a Validator to 8 gigs of RAM: </p>
+<pre><code class="language-bash">--nucleus.topk 20 --nucleus.nlayers 1
+</code></pre>
+<h2 id="optimizing-traffic"><a class="header" href="#optimizing-traffic">Optimizing Traffic</a></h2>
+<p>​</p>
+<p>There are 4096 nodes available in the network, but each Validator can only query a section of the network at a time. By using the &quot;nucleus.topk&quot; argument, however, you can changes the number of peers that your Validator will query per remote forward call to the network. By default, this &quot;traffic&quot; dimension is set to 20, but with good hardware, increasing this dimension can improve your earnings, though it is recommended not to use higher than 50. </p>
+<pre><code class="language-bash">--nucleus.topk &lt;&gt;
+</code></pre>
+<h2 id="optimizing-layers"><a class="header" href="#optimizing-layers">Optimizing Layers</a></h2>
+<p>​</p>
+<p>This is another way to increase power - and therefore earning potential - given adequate hardware: increase the layers of your model. 
+​</p>
+<pre><code class="language-bash">--nucleus.nlayers &lt;&gt;
+</code></pre>
+<p>​</p>
+<h2 id="optimizing-importance"><a class="header" href="#optimizing-importance">Optimizing Importance</a></h2>
+<p>​</p>
+<p>This metric determines how &quot;risk averse&quot; your Validator will be in choosing who to send requests to. With a high importance parameter, validators will query more peers, without regard for how known they are to the network. With a low importance parameter, validators will take the safest route - querying mostly known peers in the system. This parameter is set to 3 by default, and it is not recommended to go above 10. 
+​</p>
+<pre><code class="language-bash">--nucleus.importance &lt;&gt;
+</code></pre>
+<h2 id="staking-tao-1"><a class="header" href="#staking-tao-1">Staking Tao</a></h2>
+<p>​</p>
+<p>If you are running a Validator, the more Tao you have staked in your hotkey, the more inflation through dividends you will earn. Refer to <a href="css/../cli/Basicbtcli.html">basic btcli</a> to see the commands for transferring Tao. 
+​</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="glossary"><a class="header" href="#glossary">Glossary</a></h1>
+<hr />
+<h2 id="miner-architecture"><a class="header" href="#miner-architecture">Miner Architecture</a></h2>
+<h3 id="minerneuronpeernode"><a class="header" href="#minerneuronpeernode">Miner/Neuron/Peer/Node</a></h3>
+<p>Used interchangeably to refer to a participant in the network. </p>
+<h3 id="hotkey"><a class="header" href="#hotkey">Hotkey</a></h3>
+<p>The part of the miner that contains &quot;hot storage&quot;. It is loaded into the network and gives ability to set weights (for Validators). 
+​</p>
+<h3 id="coldkey"><a class="header" href="#coldkey">Coldkey</a></h3>
+<p>The part of the miner that contains cold storage. Remains on device.
+​</p>
+<h3 id="axon"><a class="header" href="#axon">Axon</a></h3>
+<p>Miners receive requests from other peers in the network via the axon.
+​</p>
+<h3 id="dendrite"><a class="header" href="#dendrite">Dendrite</a></h3>
+<p>Miners send requests to other peers in the network via the dendrite. 
+​</p>
+<h3 id="metagraph"><a class="header" href="#metagraph">Metagraph</a></h3>
+<p>A Python torch object that produces a view into the network. This tool is used internally by miners and also for network analysis. </p>
+<h2 id="network"><a class="header" href="#network">Network</a></h2>
+<h3 id="tao"><a class="header" href="#tao">Tao</a></h3>
+<p>The digital token that functions as currency in the network. 
+​</p>
+<h3 id="subtensor-1"><a class="header" href="#subtensor-1">Subtensor</a></h3>
+<p>The network blockchain. 
+​</p>
+<h3 id="nakamoto"><a class="header" href="#nakamoto">Nakamoto</a></h3>
+<p>Our main network. 
+​</p>
+<h3 id="nobunagu"><a class="header" href="#nobunagu">Nobunagu</a></h3>
+<p>Our test network. 
+​</p>
+<h3 id="block-step"><a class="header" href="#block-step">Block step</a></h3>
+<p>Occurs every 12 seconds. The blockchain is updated, and newly minted Tao is distributed to the system. 
+​</p>
+<h3 id="uid"><a class="header" href="#uid">UID</a></h3>
+<p>The unique identifying number for each Miner. Represents its position in the network. There are currently 4096 UID's available in the network. 
+​</p>
+<h3 id="forward-requests"><a class="header" href="#forward-requests">Forward Requests</a></h3>
+<p>The first stage of the transaction in which a Validator sends data to a Server in the form of tokens, and the the Server sends embeddings back. 
+​</p>
+<h3 id="backward-requests"><a class="header" href="#backward-requests">Backward Requests</a></h3>
+<p>The second stage of the transaction in which the Validator sends feedback (in the form of gradients) to the Server.</p>
+<h2 id="consensus-mechanism"><a class="header" href="#consensus-mechanism">Consensus Mechanism</a></h2>
+<h3 id="stake"><a class="header" href="#stake">Stake</a></h3>
+<p>Equivalent to the amount of Tao attached to the Miner's hotkey. For Validators, more stake translates to rankings being worth more. For Servers, more stake translates to a lower likelihood of being deregistered from the network. 
+​</p>
+<h3 id="rank"><a class="header" href="#rank">Rank</a></h3>
+<p>The raw score given to a Server by a Validators, combined with the Stake of the Validator. 
+​</p>
+<h3 id="trust"><a class="header" href="#trust">Trust</a></h3>
+<p>This score represents the number of non-zero (approval) rankings that Servers receives from Validators. The trust score is used to determine whether a Server has achieved consensus in the network. The more stake a Validator has, the more trust scores it can distribute. 
+​</p>
+<h3 id="consensus"><a class="header" href="#consensus">Consensus</a></h3>
+<p>Achievement of a Server who has received a non-zero ranking from more than 50% of the stake in the network. Servers who reach consensus receive significantly higher rewards than those who have not. 
+​</p>
+<h3 id="incentive"><a class="header" href="#incentive">Incentive</a></h3>
+<p>The inflation achieved by a Server before dividends are distributed. The incentive is a combination of the rank and consensus scores. 
+​</p>
+<h3 id="inflation"><a class="header" href="#inflation">Inflation</a></h3>
+<p>The amount of currency (1 tao) released into the network at each block step. The single Tao is distributed amongst all peers in the network according to their performance.
+​</p>
+<h3 id="emissions"><a class="header" href="#emissions">Emissions</a></h3>
+<p>Refers the portion of the one Tao distributed to a single peer each block step.</p>
+<h3 id="dividends"><a class="header" href="#dividends">Dividends</a></h3>
+<p>When Validators rank Servers, they take on part ownership of them through the bonding matrix. When a Server's incentive is calculated, a portion of this is distributed to Validators who have bonds.</p>
+<p>​</p>
+<h3 id="bonding-matrix"><a class="header" href="#bonding-matrix">Bonding Matrix</a></h3>
+<p>Refers to the bonds that Validators hold in Servers. The higher the stake the Validator has, and the more staked in the Server, the larger the dividend the Validator will receive. </p>
+<h3 id="embeddings"><a class="header" href="#embeddings">Embeddings</a></h3>
+<p>Also referred to as representations, embeddings are a way of expressing information (i.e the comprehensible meaning of a word) as a very high-dimensional vector.</p>
+<h3 id="logits"><a class="header" href="#logits">Logits</a></h3>
+<p>The probability of a word in NTP (next token prediction) or MTP (masked token prediction).</p>
+<h3 id="inputs"><a class="header" href="#inputs">Inputs</a></h3>
+<h3 id="next-token-prediction"><a class="header" href="#next-token-prediction">Next Token Prediction</a></h3>
+<p>Predicting an answer given a context before the place of prediction (i.e. predicting the next word in a sentence).</p>
+<p><img src="nested/NextTokenPrediction.png" alt="logit/tokens" /></p>
+<h3 id="masked-token-prediction"><a class="header" href="#masked-token-prediction">Masked Token Prediction</a></h3>
+<p>Predicting an answer given a context before and after the place of prediction (i.e. predicting the next word in a sentence).</p>
+<p><img src="nested/MaskedTokenPrediction.png" alt="logit/tokens" /></p>
+<h3 id="shapely-value"><a class="header" href="#shapely-value">Shapely Value</a></h3>
+<p>A measure of individuals' contributions in a cooperative game.</p>
+<h3 id="dataset"><a class="header" href="#dataset">Dataset</a></h3>
+<p>​
+Bittensor uses a 1.5 Terrabyte corpus dataset for training known as the Mountain.</p>
+<h3 id="sigmoid-function"><a class="header" href="#sigmoid-function">Sigmoid Function</a></h3>
+<p>The sigmoid produces a threshold-like scaling which rewards connected peers and punishes the non-trusted.
+​</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="flags"><a class="header" href="#flags">Flags</a></h1>
+<hr />
+<pre><code>--config
+</code></pre>
+<ul>
+<li>If set, defaults are overridden by passed file.</li>
+</ul>
+<pre><code>--strict
+</code></pre>
+<ul>
+<li>If flagged, config will check that only exact arguemnts have been set.</li>
+</ul>
+<h2 id="neuron"><a class="header" href="#neuron">Neuron</a></h2>
+<pre><code>--neuron.learning_rate
+</code></pre>
+<ul>
+<li>Training initial learning rate.</li>
+</ul>
+<pre><code>--neuron.momentum
+</code></pre>
+<ul>
+<li>optimizer momentum.</li>
+</ul>
+<pre><code>--neuron.clip_gradients
+</code></pre>
+<ul>
+<li>Implement gradient clipping to avoid exploding loss on smaller architectures.</li>
+</ul>
+<pre><code>--neuron.device
+</code></pre>
+<ul>
+<li>miner default training device cpu/cuda</li>
+</ul>
+<pre><code>--neuron.model_name
+</code></pre>
+<ul>
+<li>pretrained model from hugging face</li>
+</ul>
+<pre><code>--neuron.pretrained
+</code></pre>
+<ul>
+<li>if the model should be pretrained</li>
+</ul>
+<pre><code>--neuron.padding
+</code></pre>
+<ul>
+<li>To pad out final dimensions</li>
+</ul>
+<pre><code>--neuron.interpolate
+</code></pre>
+<ul>
+<li>To interpolate between sentence length</li>
+</ul>
+<pre><code>--neuron.inter_degree
+</code></pre>
+<ul>
+<li>Interpolate algorithm (nearest | linear | bilinear | bicubic | trilinear | area)</li>
+</ul>
+<pre><code>--neuron.name
+</code></pre>
+<ul>
+<li>Trials for this miner go in miner.root / (wallet_cold - wallet_hot) / miner.name</li>
+</ul>
+<pre><code>--neuron.checking
+</code></pre>
+<ul>
+<li>To check if server settings are correct</li>
+</ul>
+<pre><code>--neuron.restart
+</code></pre>
+<ul>
+<li>If set, train the neuron from the beginning</li>
+</ul>
+<pre><code>--neuron.blacklist.stake.forward
+</code></pre>
+<ul>
+<li>Amount of stake (tao) in order not to get blacklisted for forward requests</li>
+</ul>
+<pre><code>--neuron.blacklist.stake.backward
+</code></pre>
+<ul>
+<li>Amount of stake (tao) in order not to get blacklisted for backward requests</li>
+</ul>
+<pre><code>--neuron.metagraph_sync
+</code></pre>
+<ul>
+<li>how often to sync the metagraph</li>
+</ul>
+<pre><code>--neuron.blocks_per_set_weights
+</code></pre>
+<ul>
+<li>how often to sync set weights</li>
+</ul>
+<pre><code>--neuron.blocks_per_epoch
+</code></pre>
+<ul>
+<li>Blocks per epoch</li>
+</ul>
+<pre><code>--neuron.blacklist.time
+</code></pre>
+<ul>
+<li>how often a peer can query you (seconds)</li>
+</ul>
+<h2 id="wallet"><a class="header" href="#wallet">Wallet</a></h2>
+<pre><code>--wallet.name
+</code></pre>
+<ul>
+<li>The name of the wallet to unlock for running bittensor (name mock is reserved for mocking this wallet)</li>
+</ul>
+<pre><code>--wallet.hotkey
+</code></pre>
+<ul>
+<li>The name of wallet's hotkey.</li>
+</ul>
+<pre><code>--wallet.path
+</code></pre>
+<ul>
+<li>The path to your bittensor wallets</li>
+</ul>
+<pre><code>--wallet._mock
+</code></pre>
+<ul>
+<li>To turn on wallet mocking for testing purposes.</li>
+</ul>
+<pre><code>--wallet.all_hotkeys
+</code></pre>
+<ul>
+<li>stake or unstake from all hotkeys simultaneously.</li>
+</ul>
+<pre><code>--wallet.hotkeys
+</code></pre>
+<ul>
+<li>stake or unstake from a specific set of hotkeys simultaneously.</li>
+</ul>
+<pre><code>--wallet.exclude_hotkeys
+</code></pre>
+<ul>
+<li>stake or unstake from all hotkeys simultaneously while exluding a specific set of hotkeys.</li>
+</ul>
+<pre><code>--max_stake
+</code></pre>
+<ul>
+<li>stake or unstake to a specific amount of stake on a hotkey.</li>
+</ul>
+<h2 id="axon-1"><a class="header" href="#axon-1">Axon</a></h2>
+<pre><code>--axon.port
+</code></pre>
+<ul>
+<li>The port this axon endpoint is served on. i.e. 8091</li>
+</ul>
+<pre><code>--axon.ip
+</code></pre>
+<ul>
+<li>The local ip this axon binds to. ie. [::]</li>
+</ul>
+<pre><code>--axon.max_workers
+</code></pre>
+<ul>
+<li>The maximum number connection handler threads working simultaneously on this endpoint. The grpc server distributes new worker threads to service requests up to this number</li>
+</ul>
+<pre><code>--axon.maximum_concurrent_rpcs
+</code></pre>
+<ul>
+<li>Maximum number of allowed active connections.</li>
+</ul>
+<pre><code>--axon.backward_timeout
+</code></pre>
+<ul>
+<li>Number of seconds to wait for backward axon request.</li>
+</ul>
+<pre><code>--axon.forward_timeout
+</code></pre>
+<ul>
+<li>Number of seconds to wait for forward axon request.</li>
+</ul>
+<pre><code>--axon.priority.max_workers
+</code></pre>
+<ul>
+<li>maximum number of threads in thread pool.</li>
+</ul>
+<pre><code>--axon.priority.maxsize
+</code></pre>
+<ul>
+<li>maximum size of tasks in priority queue.</li>
+</ul>
+<pre><code>--axon.compression
+</code></pre>
+<ul>
+<li>Which compression algorithm to use for compression (gzip, deflate, NoCompression)</li>
+</ul>
+<h2 id="subtensor-2"><a class="header" href="#subtensor-2">Subtensor</a></h2>
+<pre><code>--subtensor.network
+</code></pre>
+<ul>
+<li>The subtensor network flag.</li>
+</ul>
+<pre><code>--subtensor.chain_endpoint
+</code></pre>
+<ul>
+<li>The subtensor endpoint flag. If set, overrides the --network flag.</li>
+</ul>
+<pre><code>--subtensor._mock
+</code></pre>
+<ul>
+<li>To turn on subtensor mocking for testing purposes.</li>
+</ul>
+<h2 id="logging"><a class="header" href="#logging">Logging</a></h2>
+<pre><code>--logging.debug
+</code></pre>
+<ul>
+<li>Turn on bittensor debugging information.</li>
+</ul>
+<pre><code>--logging.trace
+</code></pre>
+<ul>
+<li>Turn on bittensor trace level information</li>
+</ul>
+<pre><code>--logging.record_log
+</code></pre>
+<ul>
+<li>Turns on logging to file.</li>
+</ul>
+<pre><code>--logging.logging_dir
+</code></pre>
+<ul>
+<li>Logging default root directory.</li>
+</ul>
+<h2 id="dataset-1"><a class="header" href="#dataset-1">Dataset</a></h2>
+<pre><code>--dataset.batch_size
+</code></pre>
+<ul>
+<li>Batch size.</li>
+</ul>
+<pre><code>--dataset.block_size
+</code></pre>
+<ul>
+<li>Number of text items to pull for each example.</li>
+</ul>
+<pre><code>--dataset.num_workers
+</code></pre>
+<ul>
+<li>Number of workers for data loader.</li>
+</ul>
+<pre><code>--dataset.dataset_name
+</code></pre>
+<ul>
+<li>Which datasets to use (ArXiv, BookCorpus2, Books3, DMMathematics, EnronEmails, EuroParl, Gutenberg_PG, HackerNews, NIHExPorter, OpenSubtitles, PhilPapers, UbuntuIRC, YoutubeSubtitles).</li>
+</ul>
+<pre><code>--dataset.data_dir
+</code></pre>
+<ul>
+<li>Where to save and load the data.</li>
+</ul>
+<pre><code>--dataset.save_dataset
+</code></pre>
+<ul>
+<li>Save the downloaded dataset or not.</li>
+</ul>
+<pre><code>--dataset.max_datasets
+</code></pre>
+<ul>
+<li>Number of datasets to load</li>
+</ul>
+<pre><code>--dataset.num_batches
+</code></pre>
+<ul>
+<li>The number of data to download each time (measured by the number of batches).</li>
+</ul>
+<h2 id="mock-tests"><a class="header" href="#mock-tests">Mock Tests</a></h2>
+<pre><code>--dataset._mock
+</code></pre>
+<ul>
+<li>To turn on dataset mocking for testing purposes.</li>
+</ul>
+<pre><code>--metagraph._mock
+</code></pre>
+<ul>
+<li>To turn on metagraph mocking for testing purposes.</li>
+</ul>
+<pre><code>--strict
+</code></pre>
+<ul>
+<li>If flagged, config will check that only exact arguemnts have been set.</li>
+</ul>
+<h2 id="nucleus"><a class="header" href="#nucleus">Nucleus</a></h2>
+<pre><code>--nucleus.topk
+</code></pre>
+<ul>
+<li>the number of peers queried during each remote forward call</li>
+</ul>
+<pre><code>--nucleus.nhid
+</code></pre>
+<ul>
+<li>the dimension of the feedforward network model in nn.TransformerEncoder</li>
+</ul>
+<pre><code>--nucleus.nhead
+</code></pre>
+<ul>
+<li>the number of heads in the multiheadattention models</li>
+</ul>
+<pre><code>--nucleus.nlayers
+</code></pre>
+<ul>
+<li>the number of nn.TransformerEncoderLayer in nn.TransformerEncoder</li>
+</ul>
+<pre><code>--nucleus.dropout 
+</code></pre>
+<ul>
+<li>the dropout value</li>
+</ul>
+<pre><code>--nucleus.importance
+</code></pre>
+<ul>
+<li>hyperparameter for the importance loss</li>
+</ul>
+<pre><code>--nucleus.noise_multiplier
+</code></pre>
+<ul>
+<li>Standard deviation multiplier on weights</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </body>
+</html>
